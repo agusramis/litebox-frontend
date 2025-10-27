@@ -1,7 +1,8 @@
 'use client';
 
+import { CloseIcon } from '@/app/icons/CloseIcon';
 import { Button, HStack, Text } from '@chakra-ui/react';
-import { CloseIcon } from '@chakra-ui/icons';
+
 
 export interface FilterButtonProps {
     label: string;
