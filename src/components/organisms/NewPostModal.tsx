@@ -169,68 +169,73 @@ export const NewPostModal = ({ topButton = true }: { topButton?: boolean }) => {
                                 commodo libero.
                             </Text>
 
-                            {state === 'idle' && (
-                                <>
-                                    <Box mb={4}>
-                                        <FormField
-                                            id="post-title"
-                                            label=""
-                                            errorText={errorText}
-                                        >
-                                            <Input
-                                                placeholder="Post Title"
-                                                value={title}
-                                                onChange={(e) => {
-                                                    setTitle(e.target.value);
-                                                    setErrorText(undefined);
-                                                }}
-                                                invalid={!!errorText}
+                            {
+                                state === 'idle' && (
+                                    <>
+                                        <Box mb={4}>
+                                            <FormField
+                                                id="post-title"
+                                                label=""
+                                                errorText={errorText}
+                                            >
+                                                <Input
+                                                    placeholder="Post Title"
+                                                    value={title}
+                                                    onChange={(e) => {
+                                                        setTitle(e.target.value);
+                                                        setErrorText(undefined);
+                                                    }}
+                                                    invalid={!!errorText}
+                                                />
+                                            </FormField>
+                                        </Box>
+
+                                        <Box mb={6}>
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={handleFileChange}
+                                                style={{ display: 'none' }}
                                             />
-                                        </FormField>
-                                    </Box>
+                                            <Button variant="secondary" size="lg" onClick={handleFileButtonClick} w="full">
+                                                Upload image ↑
+                                            </Button>
+                                            {file && (
+                                                <Text fontSize="sm" color="brand.black" mt={2}>
+                                                    Selected: {file.name}
+                                                </Text>
+                                            )}
+                                        </Box>
+                                    </>
+                                )}
 
+                            {
+                                (state === 'loading' || state === 'error' || state === 'success') && (
                                     <Box mb={6}>
-                                        <input
-                                            ref={fileInputRef}
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={handleFileChange}
-                                            style={{ display: 'none' }}
-                                        />
-                                        <Button variant="secondary" size="lg" onClick={handleFileButtonClick} w="full">
-                                            Upload image ↑
-                                        </Button>
-                                        {file && (
-                                            <Text fontSize="sm" color="brand.black" mt={2}>
-                                                Selected: {file.name}
-                                            </Text>
-                                        )}
+                                        <Input value={title} disabled style={{ opacity: 0.6 }} />
+                                        <Box mt={4}>
+                                            <LoaderBar
+                                                state={getLoaderState()}
+                                                value={progress}
+                                                onCancel={() => setState('idle')}
+                                                onRetry={handleRetry}
+                                                onDone={handleDone}
+                                            />
+                                        </Box>
                                     </Box>
-                                </>
-                            )}
+                                )
+                            }
 
-                            {(state === 'loading' || state === 'error' || state === 'success') && (
-                                <Box mb={6}>
-                                    <Input value={title} disabled style={{ opacity: 0.6 }} />
-                                    <Box mt={4}>
-                                        <LoaderBar
-                                            state={getLoaderState()}
-                                            value={progress}
-                                            onCancel={() => setState('idle')}
-                                            onRetry={handleRetry}
-                                            onDone={handleDone}
-                                        />
+                            {
+                                state === 'success' && (
+                                    <Box textAlign="center" mb={6}>
+                                        <Text fontSize="lg" fontWeight="bold" color="brand.black">
+                                            Your post was successfully uploaded!
+                                        </Text>
                                     </Box>
-                                </Box>
-                            )}
-
-                            {state === 'success' && (
-                                <Box textAlign="center" mb={6}>
-                                    <Text fontSize="lg" fontWeight="bold" color="brand.black">
-                                        Your post was successfully uploaded!
-                                    </Text>
-                                </Box>
-                            )}
+                                )
+                            }
 
                             <Flex justify="center" gap={4}>
                                 {state === 'idle' && (
@@ -254,10 +259,10 @@ export const NewPostModal = ({ topButton = true }: { topButton?: boolean }) => {
                                     </Button>
                                 )}
                             </Flex>
-                        </Box>
-                    </Dialog.Content>
-                </Dialog.Positioner>
-            </Dialog.Root>
+                        </Box >
+                    </Dialog.Content >
+                </Dialog.Positioner >
+            </Dialog.Root >
         </>
     );
 }

@@ -132,7 +132,7 @@ export async function getRelatedPosts(limit = 3): Promise<Post[]> {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://litebox-backend-production.up.railway.app/';
         console.log("🚀 ~ createRelatedPost ~ apiUrl:", apiUrl)
 
-        const url = `${apiUrl}/api/posts/related?limit=${limit}`;
+        const url = `${apiUrl}api/posts/related?limit=${limit}`;
 
         const res = await fetch(url, {
             cache: 'no-store',
@@ -162,7 +162,7 @@ export async function createRelatedPost(formPostData: FormData): Promise<Related
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://litebox-backend-production.up.railway.app/';
     console.log("🚀 ~ createRelatedPost ~ apiUrl:", apiUrl)
 
-    const url = `${apiUrl}/api/post/related`;
+    const url = `${apiUrl}api/post/related`;
 
     const res = await fetch(url, {
         method: 'POST',

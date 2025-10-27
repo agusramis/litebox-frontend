@@ -33,4 +33,3 @@ export const TopicPill = ({ label, isSelected = false, onClick, showClose = fals
     );
 };
 
-
