@@ -7,8 +7,8 @@ import { FormField } from '../molecules/FormField';
 import { Input } from '../atoms/Input';
 import { LoaderBar } from './LoaderBar';
 import { ArrowRightIcon } from '@/app/icons/ArrowRigthIcon';
-import { createRelatedPost } from '@/lib/api';
 import { toaster } from '@/components/ui/toaster';
+import { createRelatedPostAction } from '@/app/actions/posts';
 
 type ModalState = 'idle' | 'loading' | 'error' | 'success';
 
@@ -58,7 +58,7 @@ export const NewPostModal = ({ topButton = true }: { topButton?: boolean }) => {
             formData.append('title', title);
             formData.append('image', file);
 
-            await createRelatedPost(formData);
+            await createRelatedPostAction(formData);
 
             setState('success');
             toaster.create({
