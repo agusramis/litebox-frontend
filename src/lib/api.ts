@@ -1,21 +1,16 @@
 import { PostData, PostsData, Post, RelatedPost } from './types';
 
-export const PUBLIC_API = 'https://lite-tech-api.litebox.ai';
+export const PUBLIC_API = process.env.NEXT_PUBLIC_API_URL_LITE_BOX ?? 'https://lite-tech-api.litebox.ai';
 
-/**
- * Maps Post from API to ensure image URLs are complete
- */
 function mapPostImageUrl(post: Post): Post {
     const imageUrl = post.attributes.coverImg?.data?.attributes?.url;
     console.log('Original URL:', imageUrl);
 
-    // Only prefix with PUBLIC_API if URL is not already complete
-    // Check if URL already includes the full domain
     const isUrlComplete = imageUrl && (
         imageUrl.trim().startsWith('http://') ||
         imageUrl.trim().startsWith('https://') ||
         imageUrl.includes('lite-tech-api.litebox.ai') ||
-        imageUrl.includes('amazonaws.com') // S3 URLs
+        imageUrl.includes('amazonaws.com')
     );
 
     const completeUrl = imageUrl
@@ -73,7 +68,6 @@ export async function fetchPosts(
 
     const fetchOptions: RequestInit = { signal };
 
-    // Server-side: use revalidation, Client-side: use no-store
     if (options?.next) {
         fetchOptions.next = options.next;
     } else {
@@ -86,7 +80,6 @@ export async function fetchPosts(
     }
     const data: PostsData = await res.json();
 
-    // Map posts to ensure complete image URLs
     return {
         ...data,
         data: data.data.map(mapPostImageUrl),
@@ -101,18 +94,10 @@ export async function getPostById(id: string): Promise<Post> {
         throw new Error(`Failed to fetch post: ${res.status}`);
     }
     const PostData: PostData = await res.json();
-    // Map post to ensure complete image URL
     return mapPostImageUrl(PostData.data);
 }
 
-/**
- * Maps RelatedPost to Post format to unify contracts
- * 
- * Note: The imageUrl from backend is already a complete S3 presigned URL.
- * We keep it as-is without modification.
- */
 function mapRelatedPostToPost(relatedPost: RelatedPost): Post {
-    // Extract image name from URL or use a default
     const imageName = relatedPost.imageUrl
         ? relatedPost.imageUrl.split('/').pop()?.split('?')[0] || 'related-post.jpg'
         : 'related-post.jpg';
@@ -134,7 +119,6 @@ function mapRelatedPostToPost(relatedPost: RelatedPost): Post {
                     id: relatedPost.id,
                     attributes: {
                         name: imageName,
-                        // Keep the URL as-is - it's already a complete S3 presigned URL
                         url: relatedPost.imageUrl || '',
                     }
                 }
@@ -163,7 +147,6 @@ export async function getRelatedPosts(limit = 3): Promise<Post[]> {
         const data: RelatedPost[] = await res.json();
         if (!data || !Array.isArray(data)) return [];
 
-        // Map RelatedPost[] to Post[]
         return data.map(mapRelatedPostToPost);
 
     } catch (error) {
@@ -189,4 +172,3 @@ export async function createRelatedPost(formPostData: FormData): Promise<Related
     const data: RelatedPost = await res.json();
     return data;
 }
-

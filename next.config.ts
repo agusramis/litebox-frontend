@@ -30,6 +30,8 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      { protocol: 'https', hostname: 'litebox-bucket.s3.us-east-2.amazonaws.com' },
+
     ],
   },
 }

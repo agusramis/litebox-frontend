@@ -7,9 +7,9 @@ import { HomeGrid } from '@/components/templates/HomeGrid';
 import { Text } from '@/components/atoms/Text'
 import type { Post } from '@/lib/types';
 import { fetchPosts } from '@/lib/api';
-import { TopicsFilter } from '../molecules/TopicsFilter';
 import { NewsletterCTA } from '../organisms/NewsletterCTA';
 import { MostViewed } from '../organisms/MostViewedItem';
+import { TopicsFilter } from '../organisms/TopicsFilter';
 
 interface HomeTemplateClientProps {
     featured: Post;
@@ -110,14 +110,12 @@ export const HomeTemplateClient = ({ featured, posts: initialPosts, topics, tota
 
     return (
         <>
-            <Container maxW={{ base: '100%', }} px={{ base: 4, md: 16 }}>
+            <Container maxW={{ base: '100%', lg: '1400px' }} px={{ base: 4, md: 6 }} pb={{ base: 4, md: 6 }}>
                 <Box mb={{ base: 6, md: 8 }}>
                     <FeaturedHero post={featured} />
                 </Box>
                 <Grid templateColumns={{ base: '1fr', lg: '1fr 360px' }} gap={8} alignItems="start">
-                    <GridItem>
-
-
+                    <GridItem overflow={"auto"}>
                         <Flex
                             mb={{ base: 6, md: 8 }}
                             gap="6"

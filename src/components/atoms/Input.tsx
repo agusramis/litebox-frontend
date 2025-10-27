@@ -1,4 +1,8 @@
-import { Input as ChakraInput, InputGroup, InputAddon, type InputProps as ChakraInputProps } from '@chakra-ui/react';
+import {
+    Input as ChakraInput,
+    InputGroup,
+    type InputProps as ChakraInputProps,
+} from '@chakra-ui/react';
 import { forwardRef } from 'react';
 
 export interface InputProps extends Omit<ChakraInputProps, 'invalid'> {
@@ -11,13 +15,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ({ invalid, leftAddon, rightAddon, ...props }, ref) => {
         if (leftAddon || rightAddon) {
             return (
-                <InputGroup.Root>
-                    {leftAddon && (
-                        <InputAddon.Root placement="start">
-                            <InputAddon.Indicator />
-                            {leftAddon}
-                        </InputAddon.Root>
-                    )}
+                <InputGroup
+                    startAddon={leftAddon}
+                    endAddon={rightAddon}
+                >
                     <ChakraInput
                         ref={ref}
                         borderRadius="lg"
@@ -33,24 +34,20 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                             cursor: 'not-allowed',
                             boxShadow: 'none',
                         }}
+                        aria-invalid={invalid || undefined}
                         {...props}
                     />
-                    {rightAddon && (
-                        <InputAddon.Root placement="end">
-                            <InputAddon.Indicator />
-                            {rightAddon}
-                        </InputAddon.Root>
-                    )}
-                </InputGroup.Root>
+                </InputGroup>
             );
         }
 
         return (
             <ChakraInput
                 ref={ref}
-                borderRadius="lg"
                 borderColor={invalid ? 'semantic.error' : 'black'}
                 borderWidth="1px"
+                color="brand.black"
+                bg="brand.white"
                 _focus={{
                     boxShadow: '0 0 0 3px rgba(13, 110, 253, 0.3)',
                     borderColor: 'brand.primary',
@@ -61,12 +58,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     cursor: 'not-allowed',
                     boxShadow: 'none',
                 }}
-                style={invalid ? { borderColor: 'var(--chakra-colors-semantic-error)' } : undefined}
+                aria-invalid={invalid || undefined}
                 {...props}
             />
         );
     }
 );
-
 Input.displayName = 'Input';
 

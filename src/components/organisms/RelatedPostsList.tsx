@@ -15,7 +15,7 @@ export const RelatedPostsList = ({ relatedPosts }: { relatedPosts: Post[] }) => 
                     <Heading as="h2" size="lg">
                         Related Posts
                     </Heading>
-                    <NewPostModal />
+                    <NewPostModal topButton={false} />
                 </Flex>
                 <Text>No related posts available.</Text>
             </Box>
@@ -28,7 +28,7 @@ export const RelatedPostsList = ({ relatedPosts }: { relatedPosts: Post[] }) => 
                 <Heading as="h2" size="lg">
                     Related Posts
                 </Heading>
-                <NewPostModal />
+                <NewPostModal topButton={false} />
             </Flex>
             <Box overflow={"auto"}>
                 <Flex

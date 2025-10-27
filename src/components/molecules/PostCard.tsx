@@ -63,7 +63,7 @@ export const PostCard = ({ post, variant = 'default', ...cardProps }: PostCardPr
                             {post.attributes.topic}
                         </Badge>
                     </Flex>
-                    <Flex backgroundColor={"white"} padding={"24px"} w={{ base: 'auto', md: 'max-content' }} flexDir={"column"} >
+                    <Flex backgroundColor={"white"} padding={"24px"} w={{ base: 'auto' }} flexDir={"column"} >
                         <Heading
                             as="h3"
                             size={isCompact ? 'sm' : 'md'}

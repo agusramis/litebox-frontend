@@ -16,7 +16,7 @@ export const HomeGrid = ({ posts }: HomeGridProps) => {
             templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
             w="full"
             gap={8}
-            gridAutoRows="189px"
+            gridAutoRows={{ base: "378px", md: "189px" }}
         >
             {posts.map((post, index) => {
                 const tall = isTall(index);

@@ -1,5 +1,5 @@
+import { CheckIcon } from '@/app/icons/CheckIcon';
 import { HStack, Box, Text, Progress as ChakraProgress } from '@chakra-ui/react';
-import { CheckIcon } from '@chakra-ui/icons';
 
 export type LoaderState = 'idle' | 'loading' | 'error' | 'success';
 
@@ -89,7 +89,7 @@ export const LoaderBar = ({ state, label, value = 0, onCancel, onRetry, onDone }
                         <Text fontSize="sm" color="brand.black">
                             {displayLabel}
                         </Text>
-                        <CheckIcon color="brand.black" />
+                        <CheckIcon color="brand.black" size="lg" />
                     </HStack>
                     <ChakraProgress.Root
                         value={100}

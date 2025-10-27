@@ -12,21 +12,17 @@ export interface TopicsFilterProps {
 export const TopicsFilter = ({ topics, selected, onChange }: TopicsFilterProps) => {
     const handleToggle = (topic: string) => {
         if (topic === 'All') {
-            // If "All" is clicked, clear all selections or select only "All"
             if (selected.length === 0 || selected.includes('All')) {
                 onChange([]);
             } else {
                 onChange(['All']);
             }
         } else {
-            // If a specific topic is clicked
             let newSelection: string[];
 
-            // If "All" is selected, start fresh with just this topic
             if (selected.includes('All')) {
                 newSelection = [topic];
             } else {
-                // Toggle the specific topic
                 if (selected.includes(topic)) {
                     newSelection = selected.filter((t) => t !== topic);
                 } else {

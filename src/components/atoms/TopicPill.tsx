@@ -1,6 +1,6 @@
 import { Tag } from '@chakra-ui/react';
 
-export interface TagPillProps {
+export interface TopicPillProps {
     label: string;
     isSelected?: boolean;
     onClick?: () => void;
@@ -8,15 +8,9 @@ export interface TagPillProps {
     onClose?: () => void;
 }
 
-interface TopicPillProps {
-    label: string;
-    active?: boolean;
-    onClick?: () => void;
-    showClose?: boolean;
-    onClose?: () => void;
-}
 
-export const TagPill = ({ label, isSelected = false, onClick, showClose = false, onClose }: TagPillProps) => {
+
+export const TopicPill = ({ label, isSelected = false, onClick, showClose = false, onClose }: TopicPillProps) => {
     const handleClose = (e: React.MouseEvent) => {
         e.stopPropagation();
         onClose?.();
@@ -39,7 +33,4 @@ export const TagPill = ({ label, isSelected = false, onClick, showClose = false,
     );
 };
 
-// Keep backward compatibility
-export const TopicPill = ({ label, active = false, onClick, showClose = false, onClose }: TopicPillProps) => (
-    <TagPill label={label} isSelected={active} onClick={onClick} showClose={showClose} onClose={onClose} />
-);
+

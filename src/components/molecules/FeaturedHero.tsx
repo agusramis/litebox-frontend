@@ -3,6 +3,7 @@ import { Image } from '@/components/atoms/Image';
 import type { Post } from '@/lib/types';
 import { Badge } from '../atoms/Badge';
 import { truncateText } from '@/lib/utils';
+import { ArrowRightIcon } from '@/app/icons/ArrowRigthIcon';
 
 interface FeaturedHeroProps {
     post: Post;
@@ -47,7 +48,7 @@ export const FeaturedHero = ({ post }: FeaturedHeroProps) => {
                         {post.attributes.topic}
                     </Badge>
                 </Flex>
-                <Flex backgroundColor={"brand.black"} flexDir={"column"} w={"auto"}
+                <Flex backgroundColor={"brand.black"} flexDir={"column"} w={{ base: "auto", lg: 'max-content' }}
                     padding={"24px"}
                 >
                     <Heading
@@ -57,22 +58,24 @@ export const FeaturedHero = ({ post }: FeaturedHeroProps) => {
                     >
                         {truncateText(post.attributes.title, 80)}
                     </Heading>
-                    <Link href={`/post/${post.id}`} >
-                        <Flex justifyContent={"space-between"} width={"100%"}>
+                    <Flex justifyContent={"space-between"} width={"100%"}>
+                        <Link href={`/post/${post.id}`} >
                             <Text
                                 fontSize={"md"}
                                 color="brand.white"
                                 fontWeight={600}
-                            >Read</Text>
-                            <Text
-                                fontSize={"sm"}
-                                color="brand.gray.light"
-                                fontWeight={400}
                             >
-                                {post.attributes.readTime} min read
-                            </Text>
-                        </Flex>
-                    </Link >
+                                Read
+                                <ArrowRightIcon size={"lg"} color="#9C73F7" ml="2px" /></Text>
+                        </Link>
+                        <Text
+                            fontSize={"sm"}
+                            color="brand.gray.light"
+                            fontWeight={400}
+                        >
+                            {post.attributes.readTime} min read
+                        </Text>
+                    </Flex>
                 </Flex>
             </Flex>
         </Flex>

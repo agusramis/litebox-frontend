@@ -26,7 +26,6 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                         <Heading
                             as="h1"
                             size={{ base: "lg", md: "xl" }}
-                            mt={{ base: 6, md: 8 }}
                             mb={{ base: 3, md: 4 }}
                             {...props}
                         >
@@ -164,20 +163,20 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                             {children}
                         </Box>
                     ),
-                    a: ({ children, href, ...props }) => (
-                        <Box
-                            as="a"
-                            href={typeof href === 'string' ? href : undefined}
-                            color="brand.purple"
-                            textDecoration="underline"
-                            fontWeight="medium"
-                            _hover={{
-                                color: "brand.green",
-                            }}
-                            {...(props as BoxProps)}
-                        >
-                            {children}
-                        </Box>
+                    a: ({ children, ...props }) => (
+                        <a>
+                            <Box
+                                as="a"
+                                color="brand.purple"
+                                textDecoration="underline"
+                                fontWeight="medium"
+                                _hover={{
+                                    color: "brand.green",
+                                }}
+                                {...(props as BoxProps)}
+                            >
+                                {children}
+                            </Box></a>
                     ),
                 }}
             >

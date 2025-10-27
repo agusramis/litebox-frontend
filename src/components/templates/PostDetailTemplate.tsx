@@ -65,9 +65,14 @@ export const PostDetailTemplate = async ({ post, markdownContent }: PostDetailTe
                 )}
                 <Flex p={{ sm: 6, md: 16 }} flexDir="column" position="absolute" justifyContent={"center"} h="100%" >
                     <Link href='/'>
-                        <Flex gap="8px" mb="10px">
+                        <Flex gap="8px" mb="10px" color="brand.white">
                             <LeftArrowIcon size="lg" />
-                            <Text>Blog</Text>
+                            <Text
+                                fontWeight={600}
+                                fontSize={"14px"}
+                                lineHeight={"150%"}
+                                letterSpacing={"0px"}
+                            >Blog</Text>
                         </Flex>
                     </Link>
                     <Flex padding={{ base: '16px 16px 0', md: '24px 24px 0' }}
@@ -105,7 +110,7 @@ export const PostDetailTemplate = async ({ post, markdownContent }: PostDetailTe
             <Flex>
 
             </Flex>
-            <Container maxW={{ base: '100%' }} px={{ base: 4, md: 6 }} bg="brand.white">
+            <Container maxW={{ base: '100%' }} px={{ base: 4, md: 16 }} bg="brand.white" pt={16}>
 
                 <Box as="article" >
                     <Grid
@@ -153,8 +158,8 @@ export const PostDetailTemplate = async ({ post, markdownContent }: PostDetailTe
                 </Box>
             </Container>
             <RelatedPostsTemplate />
-
             <Flex></Flex>
+
         </Box >
     );
 };

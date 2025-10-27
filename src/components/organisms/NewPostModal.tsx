@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { Dialog, Flex, Text, Box, CloseButton } from '@chakra-ui/react';
-import { Button, } from '../atoms/Button';
+import { Button } from '../atoms/Button';
 import { FormField } from '../molecules/FormField';
 import { Input } from '../atoms/Input';
 import { LoaderBar } from './LoaderBar';
@@ -12,7 +12,7 @@ import { toaster } from '@/components/ui/toaster';
 
 type ModalState = 'idle' | 'loading' | 'error' | 'success';
 
-export const NewPostModal = () => {
+export const NewPostModal = ({ topButton = true }: { topButton?: boolean }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [state, setState] = useState<ModalState>('idle');
     const [title, setTitle] = useState('');
@@ -34,7 +34,6 @@ export const NewPostModal = () => {
     };
 
     const handleConfirm = async () => {
-        // Validation
         if (!title.trim()) {
             setErrorText('Help Text');
             return;
@@ -50,7 +49,6 @@ export const NewPostModal = () => {
         setProgress(0);
 
         try {
-            // Simulate progress
             for (let i = 0; i <= 100; i += 10) {
                 await new Promise((resolve) => setTimeout(resolve, 150));
                 setProgress(i);
@@ -69,6 +67,7 @@ export const NewPostModal = () => {
                 type: 'success',
             });
         } catch (error) {
+            console.error('Failed to create related post:', error);
             setState('error');
             setErrorText('Failed to upload your file');
         }
@@ -77,7 +76,6 @@ export const NewPostModal = () => {
     const handleClose = () => {
         if (state !== 'loading') {
             setIsOpen(false);
-            // Reset state after close animation
             setTimeout(() => {
                 setState('idle');
                 setTitle('');
@@ -121,28 +119,26 @@ export const NewPostModal = () => {
                 onClick={() => setIsOpen(true)}
                 fontSize="md"
                 fontWeight="medium"
-                color="brand.white"
+                color={topButton ? 'brand.white' : 'brand.black'}
                 _hover={{ opacity: 0.7 }}
                 transition="opacity 0.2s ease"
                 cursor="pointer"
             >
                 New post
-                <ArrowRightIcon boxSize="20px" />
+                <ArrowRightIcon boxSize="20px" color={topButton ? 'brand.green' : 'brand.purple'} />
             </Flex>
 
-            <Dialog.Root open={isOpen} onOpenChange={(details) => !details.open && handleClose()}>
-                <Dialog.Backdrop />
+            <Dialog.Root open={isOpen} onOpenChange={(details) => !details.open && handleClose()}>                <Dialog.Backdrop />
                 <Dialog.Positioner>
                     <Dialog.Content
                         bg="brand.green"
                         border="4px solid"
                         borderColor="brand.black"
                         borderRadius="md"
-                        maxW={{ base: '90%', sm: 'md' }}
-                        padding={0}
+                        maxW={{ base: '90%', sm: '640px' }}
+                        padding={{ base: 8, md: 10 }}
                     >
                         <Box p={6}>
-                            {/* Close button */}
                             <Flex justify="flex-end" mb={4}>
                                 <CloseButton
                                     size="md"
@@ -152,9 +148,8 @@ export const NewPostModal = () => {
                                 />
                             </Flex>
 
-                            {/* Title */}
                             <Text
-                                fontSize="2xl"
+                                fontSize="35px"
                                 fontWeight="bold"
                                 color="brand.black"
                                 textAlign="center"
@@ -164,7 +159,6 @@ export const NewPostModal = () => {
                                 Upload your post
                             </Text>
 
-                            {/* Description */}
                             <Text
                                 fontSize="sm"
                                 color="brand.gray.dark"
@@ -175,7 +169,6 @@ export const NewPostModal = () => {
                                 commodo libero.
                             </Text>
 
-                            {/* Content based on state */}
                             {state === 'idle' && (
                                 <>
                                     <Box mb={4}>
@@ -204,7 +197,7 @@ export const NewPostModal = () => {
                                             onChange={handleFileChange}
                                             style={{ display: 'none' }}
                                         />
-                                        <Button variant="primary" size="lg" onClick={handleFileButtonClick} w="full">
+                                        <Button variant="secondary" size="lg" onClick={handleFileButtonClick} w="full">
                                             Upload image ↑
                                         </Button>
                                         {file && (
@@ -239,7 +232,6 @@ export const NewPostModal = () => {
                                 </Box>
                             )}
 
-                            {/* Footer buttons */}
                             <Flex justify="center" gap={4}>
                                 {state === 'idle' && (
                                     <Button variant="black" onClick={handleConfirm} w="full">

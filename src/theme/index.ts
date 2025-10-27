@@ -1,5 +1,5 @@
 import { createSystem, defaultConfig } from '@chakra-ui/react';
-import { badgeRecipe, buttonRecipe, dialogRecipe, tagRecipe } from './components';
+import { badgeRecipe, buttonRecipe, tagRecipe } from './components';
 
 export const system = createSystem(defaultConfig, {
     theme: {
@@ -7,7 +7,6 @@ export const system = createSystem(defaultConfig, {
             button: buttonRecipe,
             tag: tagRecipe,
             badge: badgeRecipe,
-            dialog: dialogRecipe,
         },
         tokens: {
             colors: {
@@ -28,8 +27,8 @@ export const system = createSystem(defaultConfig, {
                 },
             },
             fonts: {
-                heading: { value: 'Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' },
-                body: { value: 'Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' },
+                heading: { value: '"Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, sans-serif' },
+                body: { value: '"Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, sans-serif' },
             },
             shadows: {
                 hard: { value: '0px 2px 0px rgba(0,0,0,0.15)' },
