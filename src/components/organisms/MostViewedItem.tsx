@@ -46,7 +46,7 @@ export const MostViewed = ({
 
     return (
         <Box as="aside" w="full" aria-label={title}>
-            <Heading as="h3" size="md" mb={4} color={titleColor} fontWeight="bold">
+            <Heading as="h3" fontSize="18px" mb={4} color={titleColor} fontWeight={600}>
                 {title}
             </Heading>
 
@@ -80,9 +80,10 @@ export const MostViewed = ({
                                     <Text
                                         flex="1"
                                         color={textColor}
-                                        fontWeight="medium"
-                                        fontSize="md"
+                                        fontWeight={600}
+                                        fontSize="16px"
                                         lineHeight="1.4"
+
                                     >
                                         {item.title}
                                     </Text>
@@ -107,7 +108,7 @@ export const MostViewed = ({
                                 </HStack>
                             </Link>
                             {index < list.length - 1 && (
-                                <Separator color="brand.gray.light" opacity={0.3} />
+                                <Separator color="brand.gray.light" borderWidth={"1px"} />
                             )}
                         </Box>
                     ))}
