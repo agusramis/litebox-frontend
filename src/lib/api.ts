@@ -130,6 +130,8 @@ function mapRelatedPostToPost(relatedPost: RelatedPost): Post {
 export async function getRelatedPosts(limit = 3): Promise<Post[]> {
     try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+        console.log("🚀 ~ createRelatedPost ~ apiUrl:", apiUrl)
+
         const url = `${apiUrl}/api/posts/related?limit=${limit}`;
 
         const res = await fetch(url, {
@@ -156,7 +158,10 @@ export async function getRelatedPosts(limit = 3): Promise<Post[]> {
 }
 
 export async function createRelatedPost(formPostData: FormData): Promise<RelatedPost> {
+    console.log("🚀 ~ createRelatedPost ~ createRelatedPost:", createRelatedPost)
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    console.log("🚀 ~ createRelatedPost ~ apiUrl:", apiUrl)
+
     const url = `${apiUrl}/api/post/related`;
 
     const res = await fetch(url, {
