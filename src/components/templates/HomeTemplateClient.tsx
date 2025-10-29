@@ -115,13 +115,14 @@ export const HomeTemplateClient = ({ featured, posts: initialPosts, topics, tota
                     gap={{ base: 6, lg: 16 }}
                     flexDir={"column"}>
 
-                    <Flex display={{ base: 'none', md: 'flex' }}>
-                        <Text textStyle={"bodySemiBold"} color="brand.white">Today Story</Text >
-                    </Flex>
 
-                    <Box>
+
+                    <Flex flexDir={"column"} gap="6">
+                        <Flex display={{ base: 'none', md: 'flex' }}>
+                            <Text textStyle={"bodySemiBold"} color="brand.white">Today Story</Text >
+                        </Flex>
                         <FeaturedHero post={featured} />
-                    </Box>
+                    </Flex >
                     <Box overflow={"auto"} >
                         <Flex
                             alignItems={{

@@ -10,7 +10,6 @@ export { Image } from './atoms/Image';
 export { FilterButton } from './atoms/FilterButton';
 
 export { FormField, type FormFieldProps } from './molecules/FormField';
-export { TopicsCheckboxGroup, type TopicOption, type TopicsCheckboxGroupProps } from './molecules/TopicsCheckboxGroup';
 export { PostCard } from './molecules/PostCard';
 export { FeaturedHero } from './molecules/FeaturedHero';
 export { SocialShare } from './molecules/SocialShare';

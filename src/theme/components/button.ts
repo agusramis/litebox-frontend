@@ -86,7 +86,9 @@ export const buttonRecipe = defineRecipe({
                 _checkedHover: {
                     bg: 'brand.green',
                 },
-                w: "auto"
+                w: "auto",
+                textStyle: 'bodyRegularSm'
+
             },
             filterOutline: {
                 borderRadius: 'full',
@@ -97,7 +99,8 @@ export const buttonRecipe = defineRecipe({
                 borderColor: 'brand.gray.light',
                 bg: 'transparent',
                 color: 'brand.gray.light',
-                w: "auto"
+                w: "auto",
+                textStyle: 'bodyRegularSm'
             },
         }
     },
