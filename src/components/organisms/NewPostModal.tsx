@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { Dialog, Flex, Text, Box, CloseButton } from '@chakra-ui/react';
 import { Button } from '../atoms/Button';
 import { FormField } from '../molecules/FormField';
@@ -9,42 +10,52 @@ import { LoaderBar } from './LoaderBar';
 import { ArrowRightIcon } from '@/app/icons/ArrowRigthIcon';
 import { toaster } from '@/components/ui/toaster';
 import { createRelatedPostAction } from '@/app/actions/posts';
+import { CrossIcon } from '@/app/icons/CrossIcon';
+import { ArrowUpIcon } from '@/app/icons/ArrowUpIcon';
+import { Heading } from '../atoms/Heading';
 
 type ModalState = 'idle' | 'loading' | 'error' | 'success';
+
+type FormValues = {
+    title: string;
+    image: FileList | null;
+};
 
 export const NewPostModal = ({ topButton = true }: { topButton?: boolean }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [state, setState] = useState<ModalState>('idle');
-    const [title, setTitle] = useState('');
-    const [file, setFile] = useState<File | null>(null);
-    const [errorText, setErrorText] = useState<string | undefined>();
     const [progress, setProgress] = useState(0);
+
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = e.target.files?.[0];
-        if (selectedFile) {
-            setFile(selectedFile);
-            setErrorText(undefined);
-        }
-    };
+    const {
+        register,
+        handleSubmit,
+        control,
+        reset,
+        setError,
+        clearErrors,
+        watch,
+        formState: { errors, isSubmitting },
+    } = useForm<FormValues>({
+        defaultValues: { title: '', image: null },
+        mode: 'onSubmit',
+    });
+
+    const imageFiles = watch('image');
+    const selectedFileName = imageFiles?.[0]?.name;
 
     const handleFileButtonClick = () => {
         fileInputRef.current?.click();
     };
 
-    const handleConfirm = async () => {
-        if (!title.trim()) {
-            setErrorText('Help Text');
-            return;
-        }
-
+    const onSubmit = async (data: FormValues) => {
+        const file = data.image?.[0];
         if (!file) {
-            setErrorText('Please upload an image');
+            setError('image', { type: 'required', message: 'Please upload an image' });
             return;
         }
 
-        setErrorText(undefined);
         setState('loading');
         setProgress(0);
 
@@ -55,7 +66,7 @@ export const NewPostModal = ({ topButton = true }: { topButton?: boolean }) => {
             }
 
             const formData = new FormData();
-            formData.append('title', title);
+            formData.append('title', data.title.trim());
             formData.append('image', file);
 
             await createRelatedPostAction(formData);
@@ -69,7 +80,7 @@ export const NewPostModal = ({ topButton = true }: { topButton?: boolean }) => {
         } catch (error) {
             console.error('Failed to create related post:', error);
             setState('error');
-            setErrorText('Failed to upload your file');
+            setError('image', { type: 'server', message: 'Failed to upload your file' });
         }
     };
 
@@ -78,28 +89,26 @@ export const NewPostModal = ({ topButton = true }: { topButton?: boolean }) => {
             setIsOpen(false);
             setTimeout(() => {
                 setState('idle');
-                setTitle('');
-                setFile(null);
-                setErrorText(undefined);
                 setProgress(0);
+                reset();
+                clearErrors();
             }, 300);
         }
     };
 
     const handleRetry = () => {
         setState('idle');
-        setErrorText(undefined);
         setProgress(0);
+        clearErrors();
     };
 
     const handleDone = () => {
         setIsOpen(false);
         setTimeout(() => {
             setState('idle');
-            setTitle('');
-            setFile(null);
-            setErrorText(undefined);
             setProgress(0);
+            reset();
+            clearErrors();
         }, 300);
     };
 
@@ -128,141 +137,205 @@ export const NewPostModal = ({ topButton = true }: { topButton?: boolean }) => {
                 <ArrowRightIcon boxSize="20px" color={topButton ? 'brand.green' : 'brand.purple'} />
             </Flex>
 
-            <Dialog.Root open={isOpen} onOpenChange={(details) => !details.open && handleClose()}>                <Dialog.Backdrop />
-                <Dialog.Positioner>
+            <Dialog.Root open={isOpen} onOpenChange={(details) => !details.open && handleClose()}>
+                <Dialog.Backdrop />
+                <Dialog.Positioner >
                     <Dialog.Content
                         bg="brand.green"
-                        border="4px solid"
-                        borderColor="brand.black"
-                        borderRadius="md"
-                        maxW={{ base: '90%', sm: '640px' }}
-                        padding={{ base: 8, md: 10 }}
+                        outline="3px solid"
+                        outlineColor="brand.black"
+                        padding={{ base: 10, md: 10 }}
+                        borderRadius={0}
+                        maxWidth={{ base: '330px', lg: '640px' }}
+                        boxShadow={" 10px 10px 0px 0px #000000"}
+
                     >
-                        <Box p={6}>
-                            <Flex justify="flex-end" mb={4}>
-                                <CloseButton
-                                    size="md"
-                                    color="brand.black"
-                                    onClick={handleClose}
-                                    aria-label="Close modal"
-                                />
-                            </Flex>
-
-                            <Text
-                                fontSize="35px"
-                                fontWeight="bold"
+                        <Flex justify="flex-end" padding="10px">
+                            <CrossIcon
+                                boxSize="48px"
                                 color="brand.black"
-                                textAlign="center"
-                                mb={2}
-                                lineHeight="1.2"
-                            >
-                                Upload your post
-                            </Text>
+                                onClick={handleClose}
+                                aria-label="Close modal"
+                            />
+                        </Flex>
+                        <Flex flexDir={"column"} gap={{ base: 4 }}>
+                            {state === 'idle' && (
+                                <>
+                                    <Flex flexDir="column" gap={{ base: 2 }} alignItems={"center"} textAlign={"center"}>
+                                        <Text
+                                            textStyle={"headingMedium"}
+                                            color="#240F35"
 
-                            <Text
-                                fontSize="sm"
-                                color="brand.gray.dark"
-                                textAlign="center"
-                                mb={6}
-                            >
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                commodo libero.
-                            </Text>
-
-                            {
-                                state === 'idle' && (
-                                    <>
-                                        <Box mb={4}>
-                                            <FormField
-                                                id="post-title"
-                                                label=""
-                                                errorText={errorText}
-                                            >
-                                                <Input
-                                                    placeholder="Post Title"
-                                                    value={title}
-                                                    onChange={(e) => {
-                                                        setTitle(e.target.value);
-                                                        setErrorText(undefined);
-                                                    }}
-                                                    invalid={!!errorText}
-                                                />
-                                            </FormField>
-                                        </Box>
-
-                                        <Box mb={6}>
-                                            <input
-                                                ref={fileInputRef}
-                                                type="file"
-                                                accept="image/*"
-                                                onChange={handleFileChange}
-                                                style={{ display: 'none' }}
-                                            />
-                                            <Button variant="secondary" size="lg" onClick={handleFileButtonClick} w="full">
-                                                Upload image ↑
-                                            </Button>
-                                            {file && (
-                                                <Text fontSize="sm" color="brand.black" mt={2}>
-                                                    Selected: {file.name}
-                                                </Text>
-                                            )}
-                                        </Box>
-                                    </>
-                                )}
-
-                            {
-                                (state === 'loading' || state === 'error' || state === 'success') && (
-                                    <Box mb={6}>
-                                        <Input value={title} disabled style={{ opacity: 0.6 }} />
-                                        <Box mt={4}>
-                                            <LoaderBar
-                                                state={getLoaderState()}
-                                                value={progress}
-                                                onCancel={() => setState('idle')}
-                                                onRetry={handleRetry}
-                                                onDone={handleDone}
-                                            />
-                                        </Box>
-                                    </Box>
-                                )
-                            }
-
-                            {
-                                state === 'success' && (
-                                    <Box textAlign="center" mb={6}>
-                                        <Text fontSize="lg" fontWeight="bold" color="brand.black">
-                                            Your post was successfully uploaded!
+                                        >
+                                            Upload your post
                                         </Text>
-                                    </Box>
-                                )
-                            }
+                                        <Text
+                                            textStyle={"bodyRegular"}
+                                            color="#595959"
 
-                            <Flex justify="center" gap={4}>
-                                {state === 'idle' && (
-                                    <Button variant="black" onClick={handleConfirm} w="full">
-                                        Confirm
-                                    </Button>
-                                )}
-                                {state === 'loading' && (
-                                    <Button variant="black" onClick={handleConfirm} disabled isLoading w="full">
-                                        Confirm
-                                    </Button>
-                                )}
-                                {state === 'error' && (
-                                    <Button variant="black" onClick={handleConfirm} w="full">
-                                        Confirm
-                                    </Button>
-                                )}
-                                {state === 'success' && (
-                                    <Button variant="black" onClick={handleDone} w="full">
+                                        >
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse commodo libero.
+                                        </Text>
+                                    </Flex>
+                                    <form onSubmit={handleSubmit(onSubmit)} >
+                                        <Flex flexDir={"column"} gap="8">
+                                            <Flex flexDir={"column"} gap="4">
+                                                <Box textAlign={"center"} alignItems={"center"}>
+                                                    <FormField
+                                                        id="post-title"
+                                                        label=""
+                                                        errorText={errors.title?.message}
+                                                        alignItems={"center"}
+
+                                                    >
+                                                        <Input
+                                                            placeholder="Post Title"
+                                                            {...register('title', {
+                                                                required: 'Title is required',
+                                                                validate: (v) =>
+                                                                    v.trim().length > 0 || 'Title is required',
+                                                            })}
+                                                            invalid={!!errors.title}
+                                                            maxW={{ base: '100%', md: '400px' }}
+                                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                                if (e.target.value) {
+                                                                    clearErrors('title');
+                                                                }
+                                                            }}
+                                                        />
+                                                    </FormField>
+                                                </Box>
+
+                                                <Box textAlign={"center"}>
+                                                    <Controller
+                                                        name="image"
+                                                        control={control}
+                                                        rules={{ required: 'Please upload an image' }}
+                                                        render={({ field: { onChange, ref } }) => (
+                                                            <>
+                                                                <input
+                                                                    ref={(node) => {
+                                                                        ref(node);
+                                                                        fileInputRef.current = node;
+                                                                    }}
+                                                                    type="file"
+                                                                    accept="image/*"
+                                                                    style={{ display: 'none' }}
+                                                                    onChange={(e) => {
+                                                                        onChange(e.target.files);
+                                                                        clearErrors('image');
+                                                                    }}
+
+                                                                />
+                                                                <Button
+                                                                    variant="secondary"
+                                                                    onClick={handleFileButtonClick}
+                                                                    w="full"
+                                                                    maxW={{ base: '100%', md: '400px' }}
+                                                                    type="button"
+                                                                    h="56px"
+                                                                    textStyle={"buttonMedium"}
+
+                                                                >
+                                                                    Upload image <ArrowUpIcon size="lg" />
+                                                                </Button>
+                                                                {(selectedFileName || errors.image) && (
+                                                                    <Text
+                                                                        color={errors.image ? 'red.600' : 'brand.black'}
+                                                                    >
+                                                                        {errors.image?.message || `Selected: ${selectedFileName}`}
+                                                                    </Text>
+                                                                )}
+                                                            </>
+                                                        )}
+                                                    />
+                                                </Box>
+                                            </Flex>
+                                            <Flex justify="center" gap={4}>
+                                                <Button
+                                                    variant="black"
+                                                    type="submit"
+                                                    w="full"
+                                                    h="56px"
+                                                    textStyle={"buttonMedium"}
+                                                    maxW={{ base: '100%', md: '132px' }}
+
+                                                    isLoading={isSubmitting}
+                                                >
+                                                    Confirm
+                                                </Button>
+                                            </Flex>
+                                        </Flex>
+
+                                    </form>
+                                </>)}
+
+                            {(state === 'loading' || state === 'error') && (
+                                <Flex textAlign={"center"} flexDir={"column"} alignItems={"center"} gap="10">
+                                    <Input
+                                        value={watch('title') || ''}
+                                        disabled
+                                        style={{ opacity: 0.6 }}
+                                        maxW={{ base: '100%', md: '400px' }}
+
+                                    />
+                                    <Box
+                                        w={{ base: '100%', lg: '400px' }}
+                                    >
+                                        <LoaderBar
+                                            state={getLoaderState()}
+                                            value={progress}
+                                            onCancel={() => {
+                                                setState('idle');
+                                                setProgress(0);
+                                            }}
+                                            onRetry={handleRetry}
+                                            onDone={handleDone}
+                                        />
+                                    </Box>
+                                    {state === 'loading' && (
+                                        <Button variant="black" disabled isLoading w="full"
+                                            h="56px"
+                                            textStyle={"buttonMedium"}
+                                            maxW={{ base: '100%', md: '132px' }}
+                                        >
+                                            Confirm
+                                        </Button>
+                                    )}
+                                    {state === 'error' && (
+                                        <Button
+                                            variant="black"
+                                            w="full"
+                                            onClick={handleSubmit(onSubmit)}
+                                            h="56px"
+                                            textStyle={"buttonMedium"}
+                                            maxW={{ base: '100%', md: '132px' }}
+                                        >
+                                            Confirm
+                                        </Button>
+                                    )}
+                                </Flex>
+                            )}
+
+                            {state === 'success' && (
+                                <Flex alignItems="center" flexDir={"column"} textAlign={"center"} gap={"12"}>
+                                    <Heading textStyle="headingMedium" color="brand.black">
+                                        Your post was successfully uploaded!
+                                    </Heading>
+                                    <Button variant="black" onClick={handleDone} w="full"
+                                        h="56px"
+                                        textStyle={"buttonMedium"}
+                                        maxW={{ base: '100%', md: '132px' }}
+                                    >
                                         Done
                                     </Button>
-                                )}
-                            </Flex>
-                        </Box >
-                    </Dialog.Content >
-                </Dialog.Positioner >
+                                </Flex>
+                            )}
+
+                        </Flex>
+                    </Dialog.Content>
+                </Dialog.Positioner>
             </Dialog.Root >
         </>
     );
-}
+};

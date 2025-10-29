@@ -7,7 +7,7 @@ interface HelperTextProps {
     isInvalid?: boolean;
 }
 
-export const HelperTextA = ({ text, errorText, isInvalid }: HelperTextProps) => {
+export const HelperText = ({ text, errorText, isInvalid }: HelperTextProps) => {
     if (isInvalid && errorText) {
         return (
             <Field.ErrorText color="semantic.error" fontSize="sm" mt={1}>

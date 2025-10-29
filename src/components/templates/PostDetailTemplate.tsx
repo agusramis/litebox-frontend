@@ -3,23 +3,24 @@ import {
     Container,
     Grid,
     GridItem,
-    Text,
     Flex,
     Link,
     Avatar,
 } from '@chakra-ui/react';
-import { Heading } from '@/components/atoms/Heading';
-import { Image } from '@/components/atoms/Image';
+
 import { MarkdownRenderer } from '@/components/markdown/MarkdownRenderer';
 import { SocialShare } from '@/components/molecules/SocialShare';
 import { MostViewed } from '@/components/organisms/MostViewedItem';
 import type { Post } from '@/lib/types';
-
 import { RelatedPostsTemplate } from './RelatedPostsTemplate';
 import { truncateText } from '@/lib/utils';
 import { BookIcon } from '@/app/icons/BookIcon';
 import { LeftArrowIcon } from '@/app/icons/LeftArrowIcon';
 import { fetchPosts } from '@/lib/api';
+
+import { Text } from '../atoms/Text';
+import { Heading } from '../atoms/Heading';
+import { Image } from '../atoms/Image';
 
 interface PostDetailTemplateProps {
     post: Post;
@@ -63,7 +64,13 @@ export const PostDetailTemplate = async ({ post, markdownContent }: PostDetailTe
                         priority
                     />
                 )}
-                <Flex p={{ sm: 6, md: 16 }} flexDir="column" position="absolute" justifyContent={"center"} h="100%" >
+                <Flex
+                    flexDir="column"
+                    position="absolute"
+                    justifyContent={"center"}
+                    h="100%"
+                    padding={{ base: "40px 24px", md: "128px 64px 64px" }}
+                    maxW={{ base: 'auto', lg: '528px' }}>
                     <Link href='/'>
                         <Flex gap="8px" mb="10px" color="brand.white">
                             <LeftArrowIcon size="lg" />
@@ -84,13 +91,16 @@ export const PostDetailTemplate = async ({ post, markdownContent }: PostDetailTe
                         </Avatar.Root>
                         <Text color="brand.gray.dark">{post.attributes.author}</Text>
                     </Flex>
-                    <Flex backgroundColor={"brand.white"} flexDir={"column"} w={"auto"}
+                    <Flex
+                        backgroundColor={"brand.white"}
+                        flexDir={"column"}
+                        w={"auto"}
                         padding={"24px"}
                     >
                         <Heading
                             as="h3"
-                            size={'md'}
-                            mb={3}
+                            textStyle={{ base: 'postTitleSm', lg: 'postTitle' }}
+                            color="brand.black"
                         >
                             {truncateText(post.attributes.title, 80)}
                         </Heading>
@@ -114,11 +124,11 @@ export const PostDetailTemplate = async ({ post, markdownContent }: PostDetailTe
 
                 <Box as="article" >
                     <Grid
-                        templateColumns={{ base: '1fr', lg: 'repeat(3,1fr)' }}
+                        templateColumns={{ base: '1fr', lg: '1fr 2fr 1fr' }}
                         columnGap={{ base: 0, lg: 8 }}
                     >
                         <GridItem as="aside" display={{ base: 'none', lg: 'block' }}>
-                            <Heading as="h3" size="md" mb={3}>
+                            <Heading as="h3" size="md" mb={3} color={"brand.black"}>
                                 Share On
                             </Heading>
                             <SocialShare
@@ -132,7 +142,7 @@ export const PostDetailTemplate = async ({ post, markdownContent }: PostDetailTe
                             </Box>
                         </GridItem>
                         <GridItem display={{ base: 'none', lg: 'block' }}>
-                            <Flex flexDir="column" gap={6}>
+                            <Flex flexDir="column" alignItems={"end"}>
                                 <MostViewed
                                     items={mostViewedItems}
                                     maxItems={4}

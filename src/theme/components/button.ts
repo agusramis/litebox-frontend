@@ -3,10 +3,12 @@ import { defineRecipe } from '@chakra-ui/react';
 export const buttonRecipe = defineRecipe({
     base: {
         fontWeight: '500',
-        borderRadius: 'md',
+        borderRadius: 0,
         w: "113px",
-        height: "56px",
-        padding: "5px 0",
+        h: "auto",
+        padding: "16px 32px",
+        paddingInline: "0px",
+        fontSize: "18px",
         _disabled: {
             bg: 'brand.gray.light',
             color: 'brand.gray.dark',
@@ -33,9 +35,13 @@ export const buttonRecipe = defineRecipe({
             },
             secondary: {
                 bg: 'transparent',
-                border: '2px solid',
+                outline: '2px solid',
                 borderColor: 'brand.green',
                 color: 'brand.black',
+                lineHeight: "135%",
+                letterSpacing: "0px",
+                fontSize: "18px",
+                borderWidth: 0,
                 _hover: {
                     bg: 'brand.green'
                 },

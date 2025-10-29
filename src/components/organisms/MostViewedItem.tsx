@@ -7,6 +7,7 @@ import {
     HStack,
     Skeleton,
     Separator,
+    Flex
 } from '@chakra-ui/react';
 import { Heading } from '@/components/atoms/Heading';
 import { Text } from '@/components/atoms/Text';
@@ -45,12 +46,12 @@ export const MostViewed = ({
     const showSkeletons = isLoading || list.length === 0;
 
     return (
-        <Box as="aside" w="full" aria-label={title}>
-            <Heading as="h3" fontSize="18px" mb={4} color={titleColor} fontWeight={600}>
+        <Flex as="aside" w="304px" aria-label={title} flexDir={" column"} gap="6">
+            < Heading as="h3" textStyle={"bodySemiBold"} color={titleColor} >
                 {title}
-            </Heading>
+            </Heading >
 
-            <Box>
+            <Flex flexDir={"column"} gap="3">
                 {showSkeletons
                     ? Array.from({ length: maxItems || 4 }).map((_, i) => (
                         <Box key={i}>
@@ -62,13 +63,11 @@ export const MostViewed = ({
                         </Box>
                     ))
                     : list.map((item, index) => (
-                        <Box key={item.id}>
+                        <Flex key={item.id} flexDir={"column"}>
                             <Link href={item.href} style={{ textDecoration: "none" }} >
                                 <HStack
                                     justify="space-between"
                                     align="start"
-                                    py={3}
-                                    gap={4}
                                     _hover={{
                                         opacity: 0.8,
                                         transition: 'opacity 0.2s ease',
@@ -79,10 +78,8 @@ export const MostViewed = ({
                                 >
                                     <Text
                                         flex="1"
-                                        color={textColor}
-                                        fontWeight={600}
-                                        fontSize="16px"
-                                        lineHeight="1.4"
+                                        color={"brand.gray.light"}
+                                        textStyle={"bodySemiBoldSm"}
 
                                     >
                                         {item.title}
@@ -108,11 +105,11 @@ export const MostViewed = ({
                                 </HStack>
                             </Link>
                             {index < list.length - 1 && (
-                                <Separator color="brand.gray.light" borderWidth={"1px"} />
+                                <Separator color="brand.gray.light" borderWidth={"1px"} mt="3" />
                             )}
-                        </Box>
+                        </Flex>
                     ))}
-            </Box>
-        </Box>
+            </Flex>
+        </Flex >
     );
 };

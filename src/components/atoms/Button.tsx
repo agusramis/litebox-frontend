@@ -5,17 +5,15 @@ import { buttonRecipe } from "@/theme/components/button"
 type ButtonVariantProps = RecipeVariantProps<typeof buttonRecipe> & ChakraButtonProps
 
 export interface ButtonProps
-    extends React.PropsWithChildren<Omit<ButtonVariantProps, 'size'>> {
+    extends React.PropsWithChildren<ButtonVariantProps> {
     variant?: 'primary' | 'black' | 'ghost' | 'secondary' | 'greenOutline' | 'filter' | 'filterOutline';
-    size?: 'lg' | 'sm';
     isLoading?: boolean;
 }
 
-export const Button = ({ variant = 'primary', size = 'lg', ...props }: ButtonProps) => {
+export const Button = ({ variant = 'primary', ...props }: ButtonProps) => {
     return (
         <ChakraButton
             variant={variant}
-            size={size}
             {...props}
         />
     );

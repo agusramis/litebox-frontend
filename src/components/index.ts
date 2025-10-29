@@ -1,5 +1,5 @@
-export { FormLabelA } from './atoms/FormLabelA';
-export { HelperTextA } from './atoms/HelperTextA';
+export { FormLabel } from './atoms/FormLabel';
+export { HelperText } from './atoms/HelperText';
 export { Input } from './atoms/Input';
 export { Button, type ButtonProps } from './atoms/Button';
 export { TopicPill } from './atoms/TopicPill';

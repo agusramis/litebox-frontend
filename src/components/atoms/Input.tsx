@@ -21,9 +21,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 >
                     <ChakraInput
                         ref={ref}
-                        borderRadius="lg"
+                        borderRadius={0}
+                        p="8px 16px"
                         borderColor={invalid ? 'semantic.error' : 'black'}
                         borderWidth="1px"
+                        textStyle={"bodyMedium"}
                         _focus={{
                             boxShadow: '0 0 0 3px rgba(13, 110, 253, 0.3)',
                             borderColor: 'brand.primary',
@@ -44,10 +46,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         return (
             <ChakraInput
                 ref={ref}
+                borderRadius={0}
+                p="8px 16px"
+                h="56px"
                 borderColor={invalid ? 'semantic.error' : 'black'}
                 borderWidth="1px"
                 color="brand.black"
                 bg="brand.white"
+                textStyle={"bodyMedium"}
                 _focus={{
                     boxShadow: '0 0 0 3px rgba(13, 110, 253, 0.3)',
                     borderColor: 'brand.primary',

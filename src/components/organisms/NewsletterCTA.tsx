@@ -7,10 +7,7 @@ export const NewsletterCTA = () => {
         <Flex
             bg="brand.purple"
             color="brand.black"
-            p={{ base: 6, md: 8 }}
-            borderRadius="xl"
-            border="2px solid"
-            borderColor="brand.green"
+            p={{ base: 10, md: 8 }}
             _hover={{
                 transform: 'translateY(-4px)',
                 boxShadow: 'hard',
@@ -20,14 +17,15 @@ export const NewsletterCTA = () => {
             alignItems={"center"}
             w={"100%"}
             flexWrap={{ base: "wrap", lg: 'no-wrap' }}
+            gap={{ base: '28px' }}
         >
-            <Text fontSize={"27px"} fontWeight={400} mr="1" color="brand.white" flex="1">
-                Sign up for our newsletter and get daily updates
+            <Text textStyle="bodyRegularLg" color="brand.white" flex="1">
+                Sign up for our newsletter <Text textStyle={"bodySemiBoldLg"}>and get daily updates</Text>
             </Text>
-            <Button variant="primary" >
+            <Button variant="primary" w={{ base: "100%", md: '152px' }} h="56px" >
                 Subscribe
             </Button>
-        </Flex>
+        </Flex >
     );
 }
 

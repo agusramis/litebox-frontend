@@ -2,7 +2,7 @@
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Box, Image, type BoxProps } from '@chakra-ui/react';
+import { Box, Image, type BoxProps, Flex } from '@chakra-ui/react';
 import { Heading } from '@/components/atoms/Heading';
 import { Text } from '@/components/atoms/Text';
 
@@ -12,12 +12,8 @@ interface MarkdownRendererProps {
 
 export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
     return (
-        <Box
-            css={{
-                '& > *:not(:last-child)': {
-                    mb: [3, 4],
-                },
-            }}
+        <Flex
+            flexDir={"column"}
         >
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
@@ -25,8 +21,8 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                     h1: ({ children, ...props }) => (
                         <Heading
                             as="h1"
-                            size={{ base: "lg", md: "xl" }}
-                            mb={{ base: 3, md: 4 }}
+                            color="brand.black"
+                            textStyle="headingBoldLg"
                             {...props}
                         >
                             {children}
@@ -35,9 +31,6 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                     h2: ({ children, ...props }) => (
                         <Heading
                             as="h2"
-                            size={{ base: "md", md: "lg" }}
-                            mt={{ base: 5, md: 6 }}
-                            mb={{ base: 2, md: 3 }}
                             {...props}
                         >
                             {children}
@@ -46,9 +39,6 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                     h3: ({ children, ...props }) => (
                         <Heading
                             as="h3"
-                            size={{ base: "sm", md: "md" }}
-                            mt={{ base: 4, md: 6 }}
-                            mb={{ base: 2, md: 3 }}
                             {...props}
                         >
                             {children}
@@ -56,18 +46,17 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                     ),
                     p: ({ children, ...props }) => (
                         <Text
-                            fontSize={{ base: "sm", md: "md" }}
-                            mb={{ base: 3, md: 4 }}
-                            lineHeight="1.8"
+                            textStyle={"bodyRegularSm"}
+                            mb={4}
+                            color="brand.gray.dark"
                             {...props}
-                            as={"div"}
                         >
                             {children}
                         </Text>
                     ),
                     img: ({ src, alt }) => (
                         <Box
-                            my={{ base: 4, md: 6 }}
+                            my={{ base: 4 }}
                             borderRadius="xl"
                             overflow="hidden"
                             w="100%"
@@ -94,11 +83,21 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                             pl={{ base: 3, md: 4 }}
                             py={{ base: 2, md: 3 }}
                             my={{ base: 4, md: 6 }}
-                            bg="gray.50"
-                            fontStyle="italic"
-                            fontSize={{ base: "sm", md: "md" }}
-                            {...(props as BoxProps)}
+                            mx={{ base: 4, md: 8 }}
+                            color="brand.black"
+                            textStyle="headingBoldLg"
+                            css={{
+                                '& *': {
+                                    fontFamily: 'inherit',
+                                    fontSize: 'inherit',
+                                    fontWeight: 'inherit',
+                                    lineHeight: 'inherit',
+                                    color: 'inherit',
+                                },
+                                '& p': { margin: 0 }, // quita margen del p adentro del quote
+                            }}
                         >
+
                             {children}
                         </Box>
                     ),
@@ -167,9 +166,9 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                         <a>
                             <Box
                                 as="a"
-                                color="brand.purple"
                                 textDecoration="underline"
-                                fontWeight="medium"
+                                textStyle={"bodyRegularSm"}
+                                color="brand.black"
                                 _hover={{
                                     color: "brand.green",
                                 }}
@@ -182,6 +181,6 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
             >
                 {content}
             </ReactMarkdown>
-        </Box>
+        </Flex>
     );
 };

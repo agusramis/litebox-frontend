@@ -12,7 +12,7 @@ export const RelatedPostsTemplate = async () => {
                 <Suspense
                     fallback={
                         <Box>
-                            <Heading as="h2" size="lg" mb={6}>
+                            <Heading as="h2" size="lg">
                                 Related Posts
                             </Heading>
                             <Box>
@@ -30,7 +30,7 @@ export const RelatedPostsTemplate = async () => {
     } catch {
         return (
             <Box mt={12}>
-                <Heading as="h2" size="lg" mb={6}>
+                <Heading as="h2" size="lg">
                     Related Posts
                 </Heading>
                 <Text color="red.500">Error Getting Related Posts</Text>

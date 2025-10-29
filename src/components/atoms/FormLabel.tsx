@@ -6,7 +6,7 @@ export interface FormLabelProps {
     required?: boolean;
 }
 
-export const FormLabelA = ({ children, required }: FormLabelProps) => (
+export const FormLabel = ({ children, required }: FormLabelProps) => (
     <Field.Label fontSize="sm" fontWeight="500" color="brand.black" mb={2}>
         {children}
         {required && (

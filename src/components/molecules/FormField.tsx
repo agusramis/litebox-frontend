@@ -1,9 +1,9 @@
-import { Field } from '@chakra-ui/react';
+import { Field, type FieldRootProps } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
-import { FormLabelA } from '../atoms/FormLabelA';
-import { HelperTextA } from '../atoms/HelperTextA';
+import { FormLabel } from '../atoms/FormLabel';
+import { HelperText } from '../atoms/HelperText';
 
-export interface FormFieldProps {
+export interface FormFieldProps extends FieldRootProps {
     id: string;
     label?: string;
     helperText?: string;
@@ -12,14 +12,14 @@ export interface FormFieldProps {
     children: ReactNode;
 }
 
-export const FormField = ({ id, label, helperText, errorText, required, children }: FormFieldProps) => {
+export const FormField = ({ id, label, helperText, errorText, required, children, ...props }: FormFieldProps) => {
     const isInvalid = !!errorText;
 
     return (
-        <Field.Root id={id} invalid={isInvalid} required={required}>
-            {label && <FormLabelA required={required}>{label}</FormLabelA>}
+        <Field.Root id={id} invalid={isInvalid} required={required} {...props}>
+            {label && <FormLabel required={required}>{label}</FormLabel>}
             {children}
-            <HelperTextA text={helperText} errorText={errorText} isInvalid={isInvalid} />
+            <HelperText text={helperText} errorText={errorText} isInvalid={isInvalid} />
         </Field.Root>
     );
 };

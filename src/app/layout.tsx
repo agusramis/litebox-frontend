@@ -2,7 +2,13 @@ import type { Metadata } from 'next';
 import { Navbar } from '@/components/organisms/Navbar';
 import { Providers } from './providers';
 import { Toaster } from '@/components/ui/toaster';
-import { Footer } from '@/components/organisms/Footer';
+import { Space_Grotesk } from "next/font/google";
+import { FooterSlot } from '@/components/organisms/FooterCondicional';
+
+const spaceGrotesk = Space_Grotesk({
+    subsets: ["latin"],
+    variable: "--font-space-grotesk",
+});
 
 export const metadata: Metadata = {
     title: 'LiteBox - Tech Blog',
@@ -36,12 +42,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning className={spaceGrotesk.variable}>
             <body>
                 <Providers>
                     <Navbar />
                     {children}
-                    <Footer />
+                    <FooterSlot />
                     <Toaster />
                 </Providers>
             </body>

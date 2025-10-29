@@ -110,20 +110,26 @@ export const HomeTemplateClient = ({ featured, posts: initialPosts, topics, tota
 
     return (
         <>
-            <Container maxW={{ base: '100%', lg: '1400px' }} px={{ base: 4, md: 6 }} pb={{ base: 4, md: 6 }}>
-                <Box mb={{ base: 6, md: 8 }}>
-                    <FeaturedHero post={featured} />
-                </Box>
-                <Grid templateColumns={{ base: '1fr', lg: '1fr 360px' }} gap={8} alignItems="start">
-                    <GridItem overflow={"auto"}>
+            <Container maxW={{ base: '100%', lg: '1400px' }} px={{ base: 4, md: 6 }} py={{ base: 4, md: 6 }}>
+                <Flex
+                    gap={{ base: 6, lg: 16 }}
+                    flexDir={"column"}>
+
+                    <Flex display={{ base: 'none', md: 'flex' }}>
+                        <Text textStyle={"bodySemiBold"} color="brand.white">Today Story</Text >
+                    </Flex>
+
+                    <Box>
+                        <FeaturedHero post={featured} />
+                    </Box>
+                    <Box overflow={"auto"} >
                         <Flex
-                            mb={{ base: 6, md: 8 }}
-                            gap="6"
                             alignItems={{
                                 base: 'start', md: "center"
                             }}
                             flexDir={{ base: 'column', md: 'row' }}
                             overflow={"auto"}
+                            gap={6}
                         >
                             <Text fontSize={{ base: 'md', md: 'lg' }} color="white">
                                 Topics
@@ -134,38 +140,43 @@ export const HomeTemplateClient = ({ featured, posts: initialPosts, topics, tota
                                 onChange={toggleTopic}
                             />
                         </Flex>
-                        <HomeGrid posts={filteredPosts.slice(0, 3)} />
+                    </Box>
+                    <Flex gap="29px">
+                        <Flex direction={"column"} flex="1">
+                            <HomeGrid posts={filteredPosts.slice(0, 3)} />
 
-                        <Box py={8}>
-                            <NewsletterCTA />
-                        </Box>
+                            <Box py={8}>
+                                <NewsletterCTA />
+                            </Box>
 
-                        <HomeGrid posts={filteredPosts.slice(3)} />
-                        {hasMore && selectedTopics.length === 0 && (
-                            <Flex justifyContent={"center"}>
-                                <Button
-                                    variant="primary"
-                                    onClick={handleLoadMore}
-                                    mt={8}
-                                    w={{ base: 'full', md: '155px' }}
-                                    loading={loading}
-                                    loadingText="Loading..."
-                                >
-                                    Load More
-                                </Button>
-                            </Flex>
-                        )}
-                    </GridItem>
-                    <GridItem display={{ base: 'none', lg: 'block' }}>
-                        <MostViewed
-                            items={mostViewedItems}
-                            isLoading={loadingMostViewed}
-                            maxItems={4}
-                        />
-                    </GridItem>
+                            <HomeGrid posts={filteredPosts.slice(3)} />
+                        </Flex>
+                        <Flex display={{ base: 'none', lg: 'flex' }}>
+                            <MostViewed
+                                items={mostViewedItems}
+                                isLoading={loadingMostViewed}
+                                maxItems={4}
+                            />
+                        </Flex>
+                    </Flex>
+                    {hasMore && selectedTopics.length === 0 && (
+                        <Flex justifyContent={"center"}>
+                            <Button
+                                variant="primary"
+                                onClick={handleLoadMore}
+                                mt={8}
+                                w={{ base: 'full', md: '155px' }}
+                                loading={loading}
+                                loadingText="Loading..."
+                            >
+                                Load More
+                            </Button>
+                        </Flex>
+                    )}
 
-                </Grid>
-            </Container>
+
+                </Flex>
+            </Container >
         </>
     );
 }

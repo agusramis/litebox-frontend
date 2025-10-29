@@ -11,7 +11,7 @@ export const RelatedPostsList = ({ relatedPosts }: { relatedPosts: Post[] }) => 
     if (!relatedPosts || relatedPosts.length === 0) {
         return (
             <Box mt={12} px={6}>
-                <Flex justify="space-between" align="center" mb={6}>
+                <Flex justify="space-between" align="center">
                     <Heading as="h2" size="lg">
                         Related Posts
                     </Heading>
@@ -24,7 +24,7 @@ export const RelatedPostsList = ({ relatedPosts }: { relatedPosts: Post[] }) => 
 
     return (
         <Flex flexDir={"column"} px={6} alignItems={{ sm: "start", md: "center" }}>
-            <Flex justify="space-around" align="center" w="full" mb={6}>
+            <Flex justify="space-around" align="center" w="full">
                 <Heading as="h2" size="lg">
                     Related Posts
                 </Heading>
@@ -37,7 +37,7 @@ export const RelatedPostsList = ({ relatedPosts }: { relatedPosts: Post[] }) => 
                     w={'max-content'}
                 >
                     {relatedPosts.map(post => (
-                        <PostCard key={post.id} post={post} variant="compact" w={{ base: '238px', lg: '341px' }} />
+                        <PostCard key={post.id} post={post} w={{ base: '238px', lg: '341px' }} />
                     ))}
                 </Flex>
             </Box>

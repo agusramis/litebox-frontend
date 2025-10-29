@@ -8,13 +8,11 @@ import { Badge } from '../atoms/Badge';
 import { BookIcon } from '@/app/icons/BookIcon';
 import { ArrowRightIcon } from '@/app/icons/ArrowRigthIcon';
 
-interface PostCardProps extends Omit<CardRootProps, 'variant'> {
+interface PostCardProps extends CardRootProps {
     post: Post;
-    variant?: 'default' | 'compact';
 }
 
-export const PostCard = ({ post, variant = 'default', ...cardProps }: PostCardProps) => {
-    const isCompact = variant === 'compact';
+export const PostCard = ({ post, ...cardProps }: PostCardProps) => {
     const image = post.attributes.coverImg.data
     const { id: imageId, attributes: { name: imageName, url: imageSrc } } = image
 
@@ -50,7 +48,7 @@ export const PostCard = ({ post, variant = 'default', ...cardProps }: PostCardPr
                     fill
                 />
             )}
-            <Card.Body p={isCompact ? 4 : 6} position="absolute" justifyContent={"flex-end"} w="100%" h="100%">
+            <Card.Body p={6} position="absolute" justifyContent={"flex-end"} w="100%" h="100%">
                 <Flex flexDir={"column"} >
                     <Flex backgroundColor={"white"} padding={"24px 24px 0 24px"} w={"max-content"}>
                         <Badge
@@ -66,34 +64,31 @@ export const PostCard = ({ post, variant = 'default', ...cardProps }: PostCardPr
                     <Flex backgroundColor={"white"} padding={"24px"} w={{ base: 'auto' }} flexDir={"column"} >
                         <Heading
                             as="h3"
-                            size={isCompact ? 'sm' : 'md'}
-                            mb={isCompact ? 2 : 3}
+                            textStyle={{ base: 'bodyBold', md: 'headingBoldXl' }}
                             flexWrap={"wrap"}
+                            color="brand.black"
                         >
-                            {truncateText(post.attributes.title, isCompact ? 60 : 80)}
+                            {truncateText(post.attributes.title, 80)}
                         </Heading>
 
                         <Flex justifyContent={"space-between"} width={"100%"}>
                             <Link href={`/post/${post.id}`}
                             >
                                 <Text
-                                    fontSize={"md"}
+                                    textStyle={{ base: 'bodySemiBoldSm', md: 'bodySemiBoldMd' }}
                                     color="brand.black"
-                                    fontWeight={600}
                                 >
                                     Read
                                     <ArrowRightIcon size={"lg"} color="#9C73F7" ml="2px" /></Text>
                             </Link>
                             <Text
-                                fontSize={"sm"}
+                                textStyle={"bodyRegularBase"}
+                                textAlign={"center"}
                                 color="brand.gray.light"
                             >
                                 <BookIcon size={"sm"} mr="8px" /> {post.attributes.readTime}mins
                             </Text>
                         </Flex>
-
-
-
                     </Flex>
                 </Flex>
             </Card.Body>

@@ -1,4 +1,5 @@
-export const ARTICLE_MD = `# Curabitur sit amet sapien at velit fringilla tincidunt porttitor eget lacus. Sed mauris libero,
+export const ARTICLE_MD = `
+# Curabitur sit amet sapien at velit fringilla tincidunt porttitor eget lacus. Sed mauris libero,
 malesuada et venenatis vitae, porta ac enim. Curabitur sit amet sapien at velit fringilla
 tincidunt porttitor eget lacus. Sed mauris libero, malesuada et venenatis vitae, porta ac enim.
 Aliquam erat volutpat. Cras tristique eleifend dolor, et ultricies nisl feugiat sed. Pellentesque
@@ -30,6 +31,5 @@ purus sodales sed. Sed hendrerit gravida augue luctus suscipit. Maecenas id fauc
 placerat orci ac orci blandit, at porta ante ornare. Praesent tristique sollicitudin fringilla.
 Morbi at laoreet enim, sed viverra ligula. Sed laoreet, elit vel faucibus semper, urna ante
 euismod sem, accumsan volutpat augue ante ut elit. Phasellus rutrum, nulla vitae euismod blandit,
-elit nisi placerat neque, vitae facilisis massa sapien a mi. Fusce sit amet blandit lectus.
-`;
+elit nisi placerat neque, vitae facilisis massa sapien a mi. Fusce sit amet blandit lectus.`;
 
