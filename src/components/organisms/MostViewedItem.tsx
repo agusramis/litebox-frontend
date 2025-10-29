@@ -85,9 +85,9 @@ export const MostViewed = ({
                                         {item.title}
                                     </Text>
                                     <Box
-                                        w="56px"
-                                        h="56px"
-                                        minW="56px"
+                                        w="80px"
+                                        h="80px"
+                                        minW="80px"
                                         borderRadius="md"
                                         overflow="hidden"
                                         bg="brand.gray.light"
@@ -97,8 +97,8 @@ export const MostViewed = ({
                                         <Image
                                             src={item.imageUrl}
                                             alt={item.imageAlt ?? item.title}
-                                            width={56}
-                                            height={56}
+                                            width={80}
+                                            height={80}
                                             priority={index < 2}
                                         />
                                     </Box>
