@@ -102,7 +102,7 @@ export const PostDetailTemplate = async ({ post, markdownContent }: PostDetailTe
                             textStyle={{ base: 'postTitleSm', lg: 'postTitle' }}
                             color="brand.black"
                         >
-                            {truncateText(post.attributes.title, 80)}
+                            {truncateText(post.attributes.title, 35)}
                         </Heading>
                         <Flex width={"100%"} gap={"10px"} alignItems="center">
                             <BookIcon size="sm" color="brand.gray.light" />

@@ -56,7 +56,10 @@ export const FeaturedHero = ({ post }: FeaturedHeroProps) => {
                 >
                     <Heading
                         as="h3"
-                        textStyle={{ base: 'bodyBold', md: 'headingBoldXl' }}>
+                        textStyle={{ base: 'bodyBold', md: 'headingBoldXl' }}
+                        color="brand.white"
+                    >
+
                         {truncateText(post.attributes.title, 80)}
                     </Heading>
                     <Flex justifyContent={"space-between"} width={"100%"}>

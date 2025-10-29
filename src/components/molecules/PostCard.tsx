@@ -70,7 +70,7 @@ export const PostCard = ({ post, ...cardProps }: PostCardProps) => {
                             flexWrap={"wrap"}
                             color="brand.black"
                         >
-                            {truncateText(post.attributes.title, 25)}
+                            {truncateText(post.attributes.title, 80)}
                         </Heading>
                         <Flex justifyContent={"space-between"} width={"100%"}>
                             <Link href={`/post/${post.id}`}
