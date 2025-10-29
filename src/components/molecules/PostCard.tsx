@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Card, Text, Flex, CardRootProps } from '@chakra-ui/react';
+import { Card, Text, Flex, CardRootProps, Box } from '@chakra-ui/react';
 import { Heading } from '@/components/atoms/Heading';
 import { Image } from '@/components/atoms/Image';
 import { truncateText } from '@/lib/utils';
@@ -70,9 +70,8 @@ export const PostCard = ({ post, ...cardProps }: PostCardProps) => {
                             flexWrap={"wrap"}
                             color="brand.black"
                         >
-                            {truncateText(post.attributes.title, 80)}
+                            {truncateText(post.attributes.title, 25)}
                         </Heading>
-
                         <Flex justifyContent={"space-between"} width={"100%"}>
                             <Link href={`/post/${post.id}`}
                             >
