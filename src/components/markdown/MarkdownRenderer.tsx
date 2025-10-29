@@ -57,14 +57,14 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                     img: ({ src, alt }) => (
                         <Box
                             my={{ base: 4 }}
-                            borderRadius="xl"
+                            borderRadius="0"
                             overflow="hidden"
                             w="100%"
                         >
                             <Image
                                 src={typeof src === 'string' ? src : ''}
                                 alt={typeof alt === 'string' ? alt : ''}
-                                borderRadius="xl"
+                                borderRadius="unset"
                                 width="100%"
                                 height="auto"
                                 objectFit="cover"
@@ -139,7 +139,7 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                             bg="gray.100"
                             px={{ base: 1, md: 2 }}
                             py={{ base: 0.5, md: 1 }}
-                            borderRadius="sm"
+                            borderRadius="unset"
                             fontSize={{ base: "xs", md: "sm" }}
                             fontFamily="mono"
                             {...(props as BoxProps)}
@@ -153,7 +153,7 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                             bg="gray.900"
                             color="white"
                             p={{ base: 3, md: 4 }}
-                            borderRadius="md"
+                            borderRadius="unset"
                             overflow="auto"
                             my={{ base: 4, md: 6 }}
                             fontSize={{ base: "xs", md: "sm" }}
@@ -180,7 +180,7 @@ export const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
                 }}
             >
                 {content}
-            </ReactMarkdown>
-        </Flex>
+            </ReactMarkdown >
+        </Flex >
     );
 };

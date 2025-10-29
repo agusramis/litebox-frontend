@@ -17,7 +17,7 @@ export const RelatedPostsTemplate = async () => {
                             </Heading>
                             <Box>
                                 {[...Array(3)].map((_, i) => (
-                                    <Skeleton key={i} height="500px" borderRadius="md" />
+                                    <Skeleton key={i} height="500px" borderRadius="unset" />
                                 ))}
                             </Box>
                         </Box>

@@ -38,6 +38,8 @@ export const PostCard = ({ post, ...cardProps }: PostCardProps) => {
             h="100%"
             position={"relative"}
             bgSize="cover"
+            borderWidth={0}
+            borderRadius={0}
             {...cardProps}
         >
             {imageUrl && (
@@ -52,7 +54,7 @@ export const PostCard = ({ post, ...cardProps }: PostCardProps) => {
                 <Flex flexDir={"column"} >
                     <Flex backgroundColor={"white"} padding={"24px 24px 0 24px"} w={"max-content"}>
                         <Badge
-                            borderRadius="full"
+                            borderRadius="35px"
                             px={2}
                             py={1}
                             fontSize="xs"

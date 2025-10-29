@@ -75,7 +75,7 @@ export const buttonRecipe = defineRecipe({
                 },
             },
             filter: {
-                borderRadius: 'full',
+                borderRadius: "56px",
                 fontWeight: 'medium',
                 px: 4,
                 py: 2,
@@ -91,7 +91,7 @@ export const buttonRecipe = defineRecipe({
 
             },
             filterOutline: {
-                borderRadius: 'full',
+                borderRadius: "56px",
                 fontWeight: 'medium',
                 px: 4,
                 py: 2,
